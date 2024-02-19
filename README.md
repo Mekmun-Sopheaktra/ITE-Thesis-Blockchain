@@ -7,7 +7,7 @@ This project serves as the thesis defense for the final presentation required fo
 - Department: Information Technology Engineering
 - Program: Information Technology Engineering
 - Advisor: Chhim Bunchhun (ITE Lecturer)
-- R&D by: MEKMUN SOPHEAKTRA
+- R&D by: Mekmun Sopheaktra
 - Student Generation: 7
 
 ## Abstract:
