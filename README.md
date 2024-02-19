@@ -22,7 +22,7 @@ The acknowledgments express gratitude to individuals, organizations, and institu
 ## References:
 The references section provides a comprehensive list of sources cited throughout the thesis, following the prescribed citation style.
 
-#### This thesis aims to provide valuable insights into the utilization of Hyperledger Fabric for secure and efficient vehicle ownership verification systems.
+### This thesis aims to provide valuable insights into the utilization of Hyperledger Fabric for secure and efficient vehicle ownership verification systems.
 
 ## Contact:
 - Telegram: [https://t.me/Mekmun_Sopheaktra](https://t.me/Mekmun_Sopheaktra)
