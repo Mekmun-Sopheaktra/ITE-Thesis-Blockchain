@@ -1,5 +1,15 @@
 # Hyperledger Fabric in Blockchain Solutions
 
+# Project Infomation
+This Project is a thesis defense for final presentation to graduate in bacholor of information technology engineering.
+### University : ROYAL UNIVERSITY OF PHNOM PENH
+### Faculty : Faculty of Engineering
+### Department : Information Technology Engineering
+### Program : Information Technology Engineering
+### Advisor : Chhim Bunchhun ( ITE Lecturer )
+### R&D by : MEKMUN SOPHEAKTRA
+### Student Generation : 7
+
 # Abstract:
 In the contemporary landscape of digital transactions and decentralized systems, blockchain technology has emerged as a transformative force. This bachelor's thesis delves into the realm of blockchain, with a focus on Hyperledger Fabric, a permissioned blockchain framework known for its scalability, modularity, and robustness. The research and development undertaken in this thesis aim to explore the capabilities of Hyperledger Fabric in constructing secure and efficient blockchain solutions. Through a combination of theoretical analysis, practical implementation, and real-world case studies, this thesis elucidates the potential of Hyperledger Fabric in various domains such as supply chain management, finance, and healthcare. The findings of this study contribute to the growing body of knowledge surrounding blockchain technology and provide insights for businesses and organizations seeking to harness the power of Hyperledger Fabric for their digital infrastructure.
 
