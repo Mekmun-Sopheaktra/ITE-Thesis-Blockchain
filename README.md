@@ -10,6 +10,11 @@ This project serves as the thesis defense for the final presentation required fo
 - R&D by: Mekmun Sopheaktra
 - Student Generation: 7
 
+## Feature :
+- [x] Setup Project
+- [x] Init Project
+- [x] Setup Vagrant
+
 ## Abstract:
 In the realm of digital transactions and decentralized systems, blockchain technology, particularly Hyperledger Fabric, has emerged as a transformative force. This bachelor's thesis explores the utilization of Hyperledger Fabric for vehicle ownership verification. Through theoretical analysis, practical implementation, and case studies, the research elucidates the potential of Hyperledger Fabric in ensuring secure and efficient vehicle ownership verification systems. The findings contribute to the advancement of blockchain technology and offer insights for implementing Hyperledger Fabric in various domains.
 
