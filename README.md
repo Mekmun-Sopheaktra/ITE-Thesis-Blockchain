@@ -2,7 +2,7 @@
 
 # Project Infomation
 This Project is a thesis defense for final presentation to graduate in bacholor of information technology engineering.
-### University : ``ROYAL UNIVERSITY OF PHNOM PENH``
+### University : ```ROYAL UNIVERSITY OF PHNOM PENH```
 ### Faculty : Faculty of Engineering
 ### Department : Information Technology Engineering
 ### Program : Information Technology Engineering
