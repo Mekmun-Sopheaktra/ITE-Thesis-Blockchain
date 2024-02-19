@@ -27,5 +27,4 @@ The references section provides a comprehensive list of sources cited throughout
 
 License : 
 - Apache License 2.0
-
-<a href="//www.dmca.com/Protection/Status.aspx?ID=e1cc924f-380b-4c43-add6-2838863f6312" title="DMCA.com Protection Status" class="dmca-badge"> <img src ="https://images.dmca.com/Badges/dmca_protected_sml_120m.png?ID=e1cc924f-380b-4c43-add6-2838863f6312"  alt="DMCA.com Protection Status" /></a>  <script src="https://images.dmca.com/Badges/DMCABadgeHelper.min.js"> </script>
+- DMCA <a href="//www.dmca.com/Protection/Status.aspx?ID=e1cc924f-380b-4c43-add6-2838863f6312" title="DMCA.com Protection Status" class="dmca-badge"> <img src ="https://images.dmca.com/Badges/dmca_protected_sml_120m.png?ID=e1cc924f-380b-4c43-add6-2838863f6312"  alt="DMCA.com Protection Status" /></a>
