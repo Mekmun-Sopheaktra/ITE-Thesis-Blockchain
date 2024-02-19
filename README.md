@@ -23,8 +23,12 @@ The acknowledgments section expresses gratitude to individuals, organizations, a
 # References:
 The references section provides a comprehensive list of sources cited throughout the thesis, adhering to the prescribed citation style.
 
-### By presenting a thorough investigation into the utilization of Hyperledger Fabric for secure and efficient blockchain solutions, this thesis aims to provide valuable insights and contribute to the ongoing evolution of blockchain technology.
+#### By presenting a thorough investigation into the utilization of Hyperledger Fabric for secure and efficient blockchain solutions, this thesis aims to provide valuable insights and contribute to the ongoing evolution of blockchain technology.
 
+# Contact :
+- Telegram : https://t.me/Mekmun_Sopheaktra
+- Email : mail@mekmunsopheaktra.com
+- Website : mekmunsopheaktra.com
 
 ### License : 
 - [![License](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
