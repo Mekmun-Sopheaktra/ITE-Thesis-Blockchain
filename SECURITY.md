@@ -23,7 +23,7 @@ Dependencies    | Version | Supported          |
 
 Use this section to tell people how to report a vulnerability.
 
-Or Contact to : [![chatroom icon](https://patrolavia.github.io/telegram-badge/chat.png)]([https://patrolavia.github.io/telegram-badge/chat.png](https://t.me/Mekmun_Sopheaktra))
+Or Contact to : [![chatroom icon](https://patrolavia.github.io/telegram-badge/chat.png)](https://t.me/Mekmun_Sopheaktra)
 
 Tell them where to go, how often they can expect to get an update on a
 reported vulnerability, what to expect if the vulnerability is accepted or
