@@ -1,0 +1,376 @@
+DLT = Distribured Ledger Technology
+
+HF = is a permissioned network ( private ) in which identities are manageed and roles are assigned.
+
+1. Member Identities are known
+2. Participents have role based access 
+
+( public : visible all transactions but private not all transactions should be visible to all )
+
+Members can transact privately
+
+( public blockchain network, transactions are validated by the members of the network ( miners )
+3.No Incentivization Needed 
+4.No Crypto Tokens Needed for transactions
+5. HF dones not have the concept of cryptocurrenies
+6. HF supports smart contracts  or chain code.
+
+7. chain code encapsulate the business logic for the implementation of business blockchain application
+
+Summary HF is project under Linux Foundation
+
+HF is a DLT Framework build for business and there are four aspects that make it suitable for 
+business blockchain application: : 1. permissioned network, 2.Confiddential transactions
+3.No cryptocurrenies , 4.programmable.
+
+4. All BC Technology have the concept of nodes ( nodes connects to other nodes to form the BC Networks )
+
+5.Members = Legally Separate entities 
+
+6. Node : Communication Entites of the Blockchain
+
+7. Ledgers are used for managed asset
+
+8. Chain Code executions also lead to the change of the state of the assets
+
+9. There are one ledger per channel, so channel are a way by which transaction privacy is achieved in 
+HFN.
+
+10. All Nodes and Users in HFN are assigned an identity and that is done by wat of membership service
+Provider and Certificate Authority.
+
+11. there are 3 types of nodes in HFN : Orderer Nodes, Peers Nodes and Clients node
+
+12. Peers Node can be Leader Peers or anchor peer.
+
+11. Orderer Node Provide the communication channel for the fabric network. ( Orderering service )
+12. Orderer Node responsible for consistent ledger state across the network ( Provide Consensus mechanism and
+Ensured order of transactions )
+13. Create The Block & guatantees atomic delivery the blocks to the peer nodes in network
+14. Order is implementated with message oriented middleware. 
+15. SOLO is a messaging componentm is built into the order node.
+
+( Single Node : Good for Development | Dev Mode ( single point of failure )
+
+if we use SOLO we have only a single order instance which is okay for development, but it will lead to
+single point of failure in production, which is not the way to go.
+
+16.In a live netoworkm you would use the raft consensus. mechnism is built into the order of binary
+like solo ( Built info the Orderer Binary - Recommended for Production )
+
+17. Another Option for setting up the ordering service in production is the Kafka Setup
+
+18. Challenge with Kafka is that you need to set up the Kafka brokres across the multiple member
+Requires Kafka cluster be managed by the Organizations and this adds complexity in the network and
+number of additional moving parts.
+
+19.So recommend is to go with Raft in a live Network
+
+20. Orderer Node use for : Creates Blocks and Order of transaction
+21. Peers is maintain its own copy of the Ledger
+22. There are Two Parts in this Ledger : 
+	Part One is the transaction log and part two is the state database.
+	
+	Both of these are implemented by default using Leveldb, which is an in-process database
+	TXN Log is immutable mean is that once a transaction is added to the transaction log, 
+	it can neither be deleted and cann't be change 
+	
+	Peer maybe configured to use Couchdb for state database
+	
+	that we can run complex queries againtst the state data maintained for the chain code.
+	
+	Logical Representation of a peer
+	
+	Peer Node maintains the transaction log, the state database and it also manages the chain code.
+	
+	the peer node exposes services and these services are built on gRPC
+	
+	services are invoked bt the clients and other peer and by orderer for sending blocks
+	
+	peers exchange block data by way of gossip, data dissemination protocol 
+	
+23. We have gRPC and Gossip
+
+24. In Org may set up multiple peers for scalability, isolation and performance reason,
+but only anchor peers are known outside the Org ( mean : the are only peer instance within an Org
+that are discoverable )
+
+25. Each Org MUST Have at least one anchor peer
+
+Example : Two Org : 
+	1. A Org have two anchor peer
+	2. B Org have one anchor peer
+	
+	the anchor peer is an Org A and B discoverable using gossip
+	
+	as result the peers may engage in gossip, protocol based data dissemination protocol
+	
+	but in case Org B regular peers are not discoverable by anchor peer
+	
+	there are no connection between regular peers to anchor peers
+	
+	Not All Peers in the network conenct dirently to the order for receiving the blocks.
+	
+	+ ONLY the LEADERS PEERS in Org receive Blocks from the Orders.
+	
+	regular peers are tagged by Leader Peers
+	
+	- May Be Statically Assigned or Dynamically Assigned
+	- Leadership is at channel level
+	- Peer node can join multiple channels so this assignment is done at the channel 
+	
+	So in Org have : Leader Peer(Static or Dynamic Assign), Anchor Peer, regular peer.
+	
+	Leader Peer will receive the new blocks from the order and then by way of the gossip data 
+	dissenmnation protocol send it to the other peers with in Org
+	
+26. Clients Node acts on behalf of the end users. created by way of SQS, such as the Golang SDK or Node
+27. the Client node is also known as the submitting client.
+28. Client node are the one that submit the transaction requests to the network
+
+29. Channels are the way by which transaction privacy is achieved in HF based Blockchain
+
+30. Transations insolated within the channel. mean transaction created on that channel are available
+only th the members of that channel
+
+31. Chain Code will deploy to channel NOT Network
+
+31. Ordering System Channel = Bootstrap Channel : this channel gets automatically created at the
+time of the network initialization peers and hence the Org may join multiple channels
+
+32. Each the these channels has its own distributed ledger and state database
+
+Fabric CA : Fabric Authority
+	RA : Registration Authority, CA : Certificate Authority, VA : Validation Authority
+	FCA : Fabric Authority or Fabric CA
+
+FCA using PKI for Identity Management ( PKI = Public Key Infrastructure )	
+
+HF has an implementation of the certificate authority CA Server
+	CA Server have Identity registration
+	
+	- Identity Registration -> CA Server -> Identity Enrollment
+	
+33. Anchor Peer can discoverable to another Anchor Peer.
+34. Leader Peer is only peer have receive blocks from order peers
+	
+35.	Fabric is open source written in Golang
+
+36. Use Dockers in three ways is first one is runtime, the deployed chain code on the Hyperledger Fabric Network
+is launched in isolated Docker Containers.
+	second is that architectural components of HF such as peer and orderer are use docker images
+	three : Container orchestration
+37. Some of binaries in HF already have a built in databases which is based on Leveldb
+	( LevelDB = in-process database , no seperate server or software required for leveldb )
+	but if switching the state db to Couchdb it need to intall it 
+	
+38. HF : Core Components : Peer and Orderer
+		 Tools/ Utilities : Configtxgen, Configxlaor, cryptogen
+		 Fabric Certificate Authority : fabric-ca-server, fabric-ca-client
+		 
+	All these binaries require config info to provided in Yaml format ( YML )	
+	
+39. Protocol Buffer Format is a binary format that is used by gRPC	
+
+Tool :
+
+40. configtxgen 	: Management of Network/Channel configuration
+	configxlator 	: Translates Between Protobuf with JSON
+	cryptogen 		: Generates crypto material for testing 
+	fabric-ca-server: CA Server Implementation
+	fabric-ca-client: Tool for managing Identities on CA Server
+	
+41: All Dependencies : Golang, Docker/Vagrant, LevelDB, SOLO, Couchdb, Kafka, Shell, 
+
+42. There are two options for Hyperledger Fabric Distribution and Infrastructure
+	1.Container Based Setup
+	2.Native Setup
+	
+	- Container Based Setup : use docker image that can hosted in shared | dedicated VM(s)
+		we have : 1. Docker Container for Orderer,
+				  2. DOcker Container for Peers ( can have more than one peer )
+				  3. Docker Fabric-ca-server
+	//we can use kubernet
+	
+	- Native Setup : We can install Binaries Install dirently on VM and Orchestration tools 
+					 & Scripts maybe used.
+		we have : 1. One VM for Orderer
+				  2. One VM for Peers
+				  3. One VM for fabric-ca-server
+				  
+	
+		Golang, Docker/Vagrant, LevelDB, SOLO, Couchdb, Kafka, Shell, 
+		
+43.Update Fabric V.2.x
+		- Major Enhancements to Chaincode Lifecycle 
+			Chaincode Lifecycle Management
+		- Introduction of Implicit Collections : mean if we exchanging private information with Org, we dont have to explicitly created
+			a private data collection definition for that
+		- Improved performance for State Database ( Couchdb ) fabric 2.0 also using caching
+		- Optimization for Docker Image ( change to use Alpine Linux instead of Ubuntu ) smaller size and reduced launch time
+		- New Peer Command for chaincode lifecycle
+			peer lifecycle chaincode --flags
+		- Golang shim changes
+		
+44. Chaincode Definition : 	1. First Part is the chain code implementation of the specification
+							2. Second Part is a set of Parameters
+		Members have the ability to vote whether they agree with chain code definition or note
+		and depending on the rules and chaincode become deployable to the network or not.
+		Just like Democratic Process, there are rules that need to be established by the member.
+		
+		that mean we need member to agree for chain code to become deployable
+		
+45.Chaincode Package format in tar file format : use the standard tar utility : code.tar.gz is contains the code for chaincode , metadata.json is metadata about chaincode include config
+46.Chaincode tracked with name & sequence number
+47.Sequence number incremented when CC updated
+	CC = Chaincode
+	
+48. in Fabric 2.0 Org Admins Need to Approve for Package installation in peers across the Org
+49. if any peer has the older package or not have the approved package on it, it will not working 
+
+50. Consortium : is an assoiation of two or more individuals, companies, organizations or government with objects of achieving a common goal.
+	- Industry Consortium : Members are from the same industry : A.K.A : Business Consortium or Consortia.
+	- Technology Consortium : Focused on technology : W3C, Hyperledger, Enterprise Enthereum Alliance
+	
+	Typically, Blockchain business networks are driven by Industry Consortium
+		but some how Consortium can be mix with regulatory Consortium such as FAA and manufactureres.
+		
+51. Benifits of a Consortium : Standardiation , Collaboration and Efficiency to processes implementated in chaincode
+
+	1. Members of the Consortium make Decisions: 
+		- Rules & Regulations : Rules for Addition or Removal of the members, Access and Authorization policies for members
+		- Decision relate to Technology : Which Blockchain technology to adopt and the config of the Blockchain system
+	
+	2. Who can make the change to Blockchain network that owned bt multiple members of the consortium
+		Answer : it can be Centralized Change : Founding member retians authority or Dedicated Org in Control
+		or it can be De-Centralized : Majority of Orgs MUST be agree to change and Org Level decisions left to Org Admin
+		
+	Normally Consortium be De-Centralized mechanism for these kind of decisions making by moving away from that 
+	
+	 single admin -> Admin from member multiple Orgs are involved to make a decisions on any change that impacts all the members of network
+	 
+		So we need Governance and decisions making models to be supported by technology which we can using for blockchain network
+		
+52. Hyperledger support De-Centralized admin policies , that policies is create by the memebers of the consortium and enforce the rules for changes.
+	Who can the change, how to make change to network.
+	
+	
+53.Consortium are formed bt legally separated entities and the form the basic for the blochchain networks. Since there is no central authority
+that can make decisions is a consortium so
+	Decisions are consensus driven
+	
+	HLF supports consensus driven decisions by way of policies
+	
+	
+54. Paper Based Process and Old Technology vs Blockchain Technology 
+	A Seamless Collaboration Platform with no boundaries
+	
+	Laverage the HLF for creating a Business Network
+	
+	
+55. HLF uses public key infrastucture for premissioning certificates are issued to all the identities within network
+	- Certificate not refer to person, it can be infrastucture components such as Orderers, peersand, identities.
+	De-Centralized identity management
+	
+55. Cryptogen Tools : is a utility for generating the crypto material.
+	Crypto Material refers to the certificate and the Keystore 
+	## use only in testing Env
+	## require the information in YAML format
+	
+	command : cryptogen generate --config=./cryto-config.yml
+	
+	crypto-config have two parts :
+			1.A List of Organizations managing Orderers
+			2.A List of Member Organizations managing Peers
+			
+	Cryptogen Stucture :
+		- OrdererOrganizations -> domain -> orderes -> domain -> msp -> signcerts ( Public Key )
+		- OrdererOrganizations -> domain -> orderes -> domain -> msp -> keystore ( Private Key )
+		Both used by Order Binary
+		- OrdererOrganizations -> domain -> orderes -> domain -> msp -> admincerts ( Admin Public Key )
+		
+		Orderer needs to access to the MSP and TLS Certificate and Keystore
+		
+		If Transport Layer Security or TLS is enables then the order binary will alo require access to the TLS Certificate and Keystore
+		
+		access enable by ENV : ORDERER_GENERAL_LOCALMSPDIR
+		
+	If u regeneration of Full Cryto = Resetting the component setup ( Problem )
+	Solve -> Extend existing cryto setup using the extend command
+	
+	command : cryptogen extend --config=./crypto-config.yml --input=<<input folder>>
+	cryptogen extend --config=./crypto-config.addpeer.yaml --input=../crypto-config
+	
+	Configtxgen : Utilities for managing config artifacts such as :
+		1. Genesis Block : Create First Block in Blockchain
+		2. Channel Tx : Create Channel Transations
+		2. Anchor Peer Tx: Anchor Peer for Update Transations ( Not in Fabric 2.0 )
+	
+	Output : Requires Config in File in YAML format
+		YML (Configtx) -> Configtxgen -> Config Artifact(Binary Format Cann't Open )
+		
+	Inspection : Outputs config as JSON	
+	
+	Configtx Config File in Env Variable : FABRIC_CFG_PATH
+	
+	Configtx Yaml Structure : 
+		1. Org : List the members of Orgs
+		
+		2. Orderer : Config for Orderer
+		
+		3. Application : Application Config
+		
+		4. Channel : Channel Related Parameters
+		
+		5. Capabilities : Binary Version Management
+		
+		6. Profiles : Setup Multiple configs in a file
+	
+	
+	MSP = Membership Service Provider
+	
+	for COnfigtxGen can access Yaml Profile or not : configtxgen -profile AcmeOrdererGenesis(nameOfGenisis) 
+
+
+---- Create Genesis Block File ( -outputBlock , -inspectBlock )
+---- Create Channel Tx ( -outputChannelCreateTx, -inspectChannelCreateTx )
+---- Update Anchor PeerTx	( -outputAnchorPeerUpdate,inspectChannelCreateTx )
+
+Create the Genesis Block : 
+	required some config element from Yaml file : 
+		- require config for Orderer
+		- require for Orderer Org ( MSP for the Org )
+		- require for Consortiums ( MSP for Org )
+		
+	1. cryptogen generate --config=../../cryptogen/simple-two-org/crypto-config.yaml
+	
+	2. Check crypo-config.yml is still in configtxgen folder
+	
+	3. Generate Genesis Block : configtxgen -outputBlock <<filename>> -profile <<profile name>> -channelId <<Channel Name>>
+	
+	4. To Inspect Genesis Block : configtxgen -inspectBlock <<filename>>
+	
+Create the Channel Tx : flags ( -outputCreateChannelTx, inspectCreateChannelTx )
+	- require the config for the Application
+	- require the config for the Consortiums
+	- require the channel ID
+	
+	All config are in Profile Section in configtxgen 
+	
+	1. configtxgen 	-outputCreateChannelTx <<filename>> -profile <<profile name>> -channelId <<channel name>>
+		Example: configtxgen  -outputCreateChannelTx acme-channel.tx -profile AcmeChannel -channelId acmechannel
+		It will generate new file : acme-channel.tx
+	
+	What is Tx File ?
+		-> The Tx File is used by peer for submitting transaction
+		
+	2. To Inspect : configtxgen -inspectChannelCreateTx <tx filename>>
+
+		Note: Genesis and Tx File are binary it can not open directly but we can inspect it.
+		and we can export the inspect to json file just add flag : >./temp/acme-channel.json
+		
+	The Developer need to setup the config element for the channel creation transaction in a profile in configtx.yml file
+	
+	
+Create the Anchor Peer (Update Transations) :
+		

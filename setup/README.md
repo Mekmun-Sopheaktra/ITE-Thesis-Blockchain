@@ -12,6 +12,8 @@
 2. Execute on host machine
     > vagrant up
 
+
+
 3. Initialize the VM by executing the script & you are done !!!
     Log into the VM & change directory to vagrant/setup
 
