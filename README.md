@@ -1,7 +1,7 @@
-# Vehicle Ownership Verification Using Hyperledger Fabric: Research and Development
+# Vehicle Ownership Verification Using Hyperledger Fabric: Research and Development For Bachelor Thesis
 
 > [!WARNING]
-> This project is currently undergoing development.
+> This project is currently developed.
 
 ## Project Information
 This project serves as the thesis defense for the final presentation required for graduation in Bachelor of Information Technology Engineering.
@@ -17,6 +17,16 @@ This project serves as the thesis defense for the final presentation required fo
 - [x] Setup Project
 - [x] Init Project
 - [x] Setup Vagrant
+- [x] Setup Hyperledger Fabric
+- [x] Setup Chaincode
+- [x] Setup Network
+- [x] Setup Application
+- [x] Setup Monitoring Tools and Utilities
+- [x] Setup Documentation
+- [x] Setup Presentation
+- [x] Finish Thesis
+- [x] Project Defense
+- [x] Graduation
 
 ## Abstract:
 In the realm of digital transactions and decentralized systems, blockchain technology, particularly Hyperledger Fabric, has emerged as a transformative force. This bachelor's thesis explores the utilization of Hyperledger Fabric for vehicle ownership verification. Through theoretical analysis, practical implementation, and case studies, the research elucidates the potential of Hyperledger Fabric in ensuring secure and efficient vehicle ownership verification systems. The findings contribute to the advancement of blockchain technology and offer insights for implementing Hyperledger Fabric in various domains.
@@ -29,6 +39,11 @@ The acknowledgments express gratitude to individuals, organizations, and institu
 
 ## References
 The references section provides a comprehensive list of sources cited throughout the thesis, following the prescribed citation style.
+
+## Documentation
+- Report: [Vehicle Ownership Verification Using Hyperledger Fabric Report]
+- Slide: [Vehicle Ownership Verification Using Hyperledger Fabric Presentation]
+- Implementation Documentation: [Implementation Documentation]
 
 ### This thesis aims to provide valuable insights into the utilization of Hyperledger Fabric for secure and efficient vehicle ownership verification systems.
 
