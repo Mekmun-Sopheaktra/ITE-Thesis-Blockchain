@@ -1,0 +1,1 @@
+{"virtualbox":{"/home/ubuntu/hlf-docker-swarm":{"guestpath":"/home/ubuntu/hlf-docker-swarm","hostpath":"D:/raft/HLF","disabled":false,"__vagrantfile":true},"/vagrant":{"guestpath":"/vagrant","hostpath":"D:/raft/HLF","disabled":false,"__vagrantfile":true}}}

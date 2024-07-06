@@ -1,92 +1,99 @@
-$script = <<-SCRIPT
-
-# echo "Preparing local node_modules folder…"
-# mkdir -p /home/vagrant/app/sdk/vagrant_node_modules
-# chown vagrant:vagrant /home/vagrant/app/sdk/vagrant_node_modules
-
-echo "cd /vagrant" >> /home/vagrant/.profile
-echo "cd /vagrant" >> /home/vagrant/.bashrc
-echo "All good!!"
-SCRIPT
-
 Vagrant.configure("2") do |config|
+  config.vm.box = "hashicorp/bionic64"
 
-    ######## Support for express setup ########
-    # Please read the instructions under setup/README.md
-    # July 2020 - changed to 18.04
-    
-    # 1. Use this for "Standard setup"
-    # config.vm.box = "bento/ubuntu-18.04"
+    # Manager VM configuration
+    config.vm.define "hlf" do |hlf|
+      hlf.vm.network "forwarded_port", guest: 80, host: 8081, host_ip: "127.0.0.1"
+      hlf.vm.network "forwarded_port", guest: 9443, host: 9443
+      hlf.vm.network "forwarded_port", guest: 8080, host: 8080
+      hlf.vm.network "private_network", ip: "192.168.33.10"
 
-    # 2. Use this for "VirtualBox Express Setup"
-    config.vm.box = "acloudfan/hlfdev2.0-0"
+      hlf.vm.synced_folder "D:/raft/HLF", "/home/ubuntu"
 
+      hlf.vm.provision "shell", inline: <<-SCRIPT
+        # Rename the vagrant user to hlf
+        sudo usermod -l ubuntu vagrant
+        sudo groupmod -n ubuntu vagrant
+        sudo usermod -d /home/ubuntu -m ubuntu
 
-    # Uncomment the lines below if you would like to protect the VM
-    # config.ssh.username = 'vagrant'
-    # config.ssh.password = 'vagrant'
-    # config.ssh.insert_key = 'true'
+        # Update sudoers file
+        sudo sed -i 's/vagrant ALL=(ALL:ALL) NOPASSWD:ALL/ubuntu ALL=(ALL:ALL) NOPASSWD:ALL/' /etc/sudoers
 
-
-    # Ports foward
-    # For Orderer Container
-    config.vm.network "forwarded_port", guest: 7050, host: 7050
-
-    #Explorer
-    config.vm.network "forwarded_port", guest: 8080, host: 8080
-    #CouchDB
-    config.vm.network "forwarded_port", guest: 5984, host: 5984
-
-
-    # For Peer Container
-    config.vm.network "forwarded_port", guest: 7051, host: 7051
-    config.vm.network "forwarded_port", guest: 7052, host: 7052
-    config.vm.network "forwarded_port", guest: 7053, host: 7053
-
-    # Fabric CA Server
-    config.vm.network "forwarded_port", guest: 7054, host: 7054
-
-    config.vm.network "forwarded_port", guest: 8051, host: 8051
-    config.vm.network "forwarded_port", guest: 8052, host: 8052
-    config.vm.network "forwarded_port", guest: 8053, host: 8053
-
-    config.vm.network "forwarded_port", guest: 9051, host: 9051
-    config.vm.network "forwarded_port", guest: 9052, host: 9052
-    config.vm.network "forwarded_port", guest: 9053, host: 9053
-
-    # For Kafka Manager
-    config.vm.network "forwarded_port", guest: 9000, host: 9000
-    
-
-    # This gets executed for both vm1 & vm2
-    # config.vm.provision "shell", inline:  "echo 'All good'"
-    config.vm.provision "shell", inline:  $script
-
-    # config.vm.provision "shell", run: "always", inline: <<-SHELL
-    #   mount --bind  /home/vagrant/app/sdk/node_modules /home/vagrant/app/sdk/vagrant_node_modules
-    # SHELL
-  
-    # To use a diffrent Hypervisor create a section config.vm.provider
-    # And comment out the following section
-    # Configuration for Virtual Box
-    config.vm.provider :virtualbox do |vb|
-      # Change the memory here if needed - 3 Gb memory on Virtual Box VM
-      vb.customize ["modifyvm", :id, "--memory", "3072", "--cpus", "1"]
-      # Change this only if you need destop for Ubuntu - you will need more memory
-      vb.gui = false
-      # In case you have DNS issues
-      # vb.customize ["modifyvm", :id, "--natdnshostresolver1", "on"]
+        # Update profile and bashrc
+        echo "cd /vagrant" >> /home/ubuntu/.profile
+        echo "cd /vagrant" >> /home/ubuntu/.bashrc
+        echo "All good!!"
+      SCRIPT
     end
 
-    # Configuration for Windows Hyperv
-    config.vm.provider :hyperv do |hv|
-      # Change the memory here if needed - 2 Gb memory on Virtual Box VM
-      hv.customize ["modifyvm", :id, "--memory", "3072", "--cpus", "1"]
-      # Change this only if you need destop for Ubuntu - you will need more memory
-      hv.gui = false
-      # In case you have DNS issues
-      # vb.customize ["modifyvm", :id, "--natdnshostresolver1", "on"]
-    end
-
-
-  end
+#   # Manager VM configuration
+#   config.vm.define "manager" do |manager|
+#     manager.vm.network "forwarded_port", guest: 80, host: 8081, host_ip: "127.0.0.1"
+#     manager.vm.network "forwarded_port", guest: 9443, host: 9443
+#     manager.vm.network "forwarded_port", guest: 8080, host: 8080
+#     manager.vm.network "private_network", ip: "192.168.33.10"
+#
+#     manager.vm.synced_folder "D:/raft/HLF", "/home/ubuntu/hlf-docker-swarm"
+#
+#     manager.vm.provision "shell", inline: <<-SCRIPT
+#       # Rename the vagrant user to manager
+#       sudo usermod -l ubuntu vagrant
+#       sudo groupmod -n ubuntu vagrant
+#       sudo usermod -d /home/ubuntu -m ubuntu
+#
+#       # Update sudoers file
+#       sudo sed -i 's/vagrant ALL=(ALL:ALL) NOPASSWD:ALL/ubuntu ALL=(ALL:ALL) NOPASSWD:ALL/' /etc/sudoers
+#
+#       # Update profile and bashrc
+#       echo "cd /vagrant" >> /home/ubuntu/.profile
+#       echo "cd /vagrant" >> /home/ubuntu/.bashrc
+#       echo "All good!!"
+#     SCRIPT
+#   end
+#
+#   # Worker1 VM configuration
+#   config.vm.define "worker1" do |worker1|
+#     worker1.vm.network "forwarded_port", guest: 80, host: 8082, host_ip: "127.0.0.1"
+#     worker1.vm.network "private_network", ip: "192.168.33.11"
+#
+#     worker1.vm.synced_folder "D:/raft/HLF", "/home/ubuntu/hlf-docker-swarm"
+#
+#         worker1.vm.provision "shell", inline: <<-SCRIPT
+#           # Rename the vagrant user to manager
+#           sudo usermod -l ubuntu vagrant
+#           sudo groupmod -n ubuntu vagrant
+#           sudo usermod -d /home/ubuntu -m ubuntu
+#
+#           # Update sudoers file
+#           sudo sed -i 's/vagrant ALL=(ALL:ALL) NOPASSWD:ALL/ubuntu ALL=(ALL:ALL) NOPASSWD:ALL/' /etc/sudoers
+#
+#           # Update profile and bashrc
+#           echo "cd /vagrant" >> /home/ubuntu/.profile
+#           echo "cd /vagrant" >> /home/ubuntu/.bashrc
+#           echo "All good!!"
+#         SCRIPT
+#   end
+#
+#   # Worker2 VM configuration
+#   config.vm.define "worker2" do |worker2|
+#     worker2.vm.network "forwarded_port", guest: 80, host: 8083, host_ip: "127.0.0.1"
+#     worker2.vm.network "private_network", ip: "192.168.33.12"
+#
+#     worker2.vm.synced_folder "D:/raft/HLF", "/home/ubuntu/hlf-docker-swarm"
+#
+#             worker2.vm.provision "shell", inline: <<-SCRIPT
+#               # Rename the vagrant user to manager
+#               sudo usermod -l ubuntu vagrant
+#               sudo groupmod -n ubuntu vagrant
+#               sudo usermod -d /home/ubuntu -m ubuntu
+#
+#               # Update sudoers file
+#               sudo sed -i 's/vagrant ALL=(ALL:ALL) NOPASSWD:ALL/ubuntu ALL=(ALL:ALL) NOPASSWD:ALL/' /etc/sudoers
+#
+#               # Update profile and bashrc
+#               echo "cd /vagrant" >> /home/ubuntu/.profile
+#               echo "cd /vagrant" >> /home/ubuntu/.bashrc
+#               echo "All good!!"
+#             SCRIPT
+#   end
+end

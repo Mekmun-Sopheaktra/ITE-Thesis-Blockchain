@@ -1,0 +1,1 @@
+{"virtualbox":{"/home/ubuntu":{"guestpath":"/home/ubuntu","hostpath":"D:/raft/HLF","disabled":false,"__vagrantfile":true},"/vagrant":{"guestpath":"/vagrant","hostpath":"D:/raft/HLF","disabled":false,"__vagrantfile":true}}}
